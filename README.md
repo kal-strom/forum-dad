@@ -16,17 +16,17 @@ how to build a website without relying on a framework. Users will be able to:
 # Tech Stack
 
 **Frontend:**
--HTML5
--CSS3
--JavaScript
+- HTML5
+- CSS3
+- JavaScript
 
 **Backend:**
--Node.js with Express
--SQLite (for development) -> PostgreSQL (deployment)
+- Node.js with Express
+- SQLite (for development) -> PostgreSQL (deployment)
 
 **Authentication:**
--bcrypy for password hashing
--Cookie-based sessions for login state
+- bcrypy for password hashing
+- Cookie-based sessions for login state
 
 ## Database Eschema (ERD)
 ### users
