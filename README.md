@@ -127,3 +127,7 @@ how to build a website without relying on a framework. Users will be able to:
 - Week 7: Session-based auth in frontend
 - Week 8: Testing + MVP polish
 
+
+## Test
+- Updating the Readme to confirm the local environment is working properly. 
+
