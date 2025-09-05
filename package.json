@@ -1,0 +1,22 @@
+{
+  "name": "forum-dad",
+  "version": "1.0.0",
+  "description": "A discussion based online forum for first-time, inexperienced fathers to share insights with each other.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kal-strom/forum-dad.git"
+  },
+  "author": "kal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kal-strom/forum-dad/issues"
+  },
+  "homepage": "https://github.com/kal-strom/forum-dad#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
