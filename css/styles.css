@@ -5,6 +5,14 @@ body {
     background-color: #907A81; 
 }
 
+hr {
+    line-height: 0;
+}
+
+main {
+    color: #32021F;
+}
+
 /*flex-container*/
 .flex-header {
     display: flex;
@@ -23,7 +31,6 @@ body {
     margin: 0;
     background-color: #32021F;
     box-shadow: 2px 2px 5px #32021F
-
 }
 
 .nav-item {
@@ -35,18 +42,45 @@ body {
 }
 
 .main-container {
-    display: flex;
-    flex-direction: column;
     border-radius: 15px;
     width: 95%;
-    height: 650px;
+    min-height: 100vh;
+    height: auto;
     background-color: #F7F0F0;;
     margin: 20px auto;
     box-shadow: 2px 2px 5px #32021F
 }
 
-.main-title-section {
-    color: #32021F;
+.discussion-title-area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.board-title{
+    margin-right: 450px;
+
+}
+
+.new-thread {  
+    margin-right: 30px;
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    min-height: 600px;
+    height: auto;
+}
+
+.post {
+    border-radius: 15px;
+    width: 80%;
+    height: auto;
+    box-shadow: 2px 2px 5px #32021F
 }
 
 /*Forum Dad*/
@@ -80,5 +114,10 @@ header > a {
     height: auto;
     width: auto;
     
+}
+
+.footer {
+    font-size: 8px;
+    text-align: left;
 }
 
