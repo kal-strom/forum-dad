@@ -1,7 +1,61 @@
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // loads the express library into our project
 import express from 'express';
 
-import db from "./db.js";
+import sqlite3 from "sqlite3";
+
+import { execute } from "./db.js";
+import { inserting } from "./db.js";
+import { fetchAll } from './db.js';
+import { memoryDB } from './db.js'
+
+import fs from 'fs';
+
+const readFilePro = file => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, 'utf8', (err, data) => {
+            if (err) return reject(`could not read file. Error message: ${err.message}`);
+
+            resolve(data);
+        })
+    })
+}
+
+const createTables = async () => {
+    let sql = "INSERT INTO test_user(first_name, last_name, age, email) VALUES(?, ?, ?, ?)";
+    let sql2 = "SELECT * FROM test_user";
+    try {
+        const test = await readFilePro('/Users/kal/forum-dad/db/schema.sql');
+        // creating table
+        await execute(
+            memoryDB,
+            test
+        );
+        // inserting values 1 row
+        await inserting(
+            memoryDB,
+            sql,
+            ["Kal", "Strom", 31, "kal@gmail.com" ]
+        );
+    } catch (error) {
+        console.error(error);
+    } finally {
+        let rows = await fetchAll(
+            memoryDB,
+            sql2,
+            []
+        );
+        console.log(rows);
+        memoryDB.close();
+    }
+}
+
+await createTables();
 
 // importing express-session module
 // need to configure 
