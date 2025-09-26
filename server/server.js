@@ -1,32 +1,17 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// loads the express library into our project
 import express from 'express';
-
 import sqlite3 from "sqlite3";
-
-import { execute } from "./db.js";
-import { inserting } from "./db.js";
-import { fetchAll } from './db.js';
-import { memoryDB } from './db.js'
-
 import fs from 'fs';
+import db from './db.js'
+import { execute, inserting, fetchAll, readFilePro } from './db.js';
 
-const readFilePro = file => {
-    return new Promise((resolve, reject) => {
-        fs.readFile(file, 'utf8', (err, data) => {
-            if (err) return reject(`could not read file. Error message: ${err.message}`);
 
-            resolve(data);
-        })
-    })
-}
+//const __filename = fileURLToPath(import.meta.url);
+//const __dirname = dirname(__filename);
 
-const createTables = async () => {
+
+/*const createTables = async () => {
     let sql = "INSERT INTO test_user(first_name, last_name, age, email) VALUES(?, ?, ?, ?)";
     let sql2 = "SELECT * FROM test_user";
     try {
@@ -56,6 +41,7 @@ const createTables = async () => {
 }
 
 await createTables();
+*/
 
 // importing express-session module
 // need to configure 
@@ -65,6 +51,7 @@ import session from 'express-session';
 // can now use bcrypt.hash & bcrypt.compare
 // to hash and compare passwords for storage
 import bcrypt from 'bcrypt'
+import { error } from 'console';
 
 // creating an instance of express named app that represents our server
 const app = express();
@@ -90,4 +77,27 @@ app.get('/', (req,res) => {
 app.use(express.json());
 
 
-//const add2 = (a,b) => a + b;
+
+
+ 
+// ======================> TABLES CREATED <======================
+
+/*const createTables = async() => {
+    try {
+        const fileIn =  await readFilePro("/Users/kal/forum-dad/db/schema.sql");
+        await execute(
+            db,
+            fileIn
+        );
+        console.log("Tables have been created");
+    } catch (err) {
+        console.log("Tables creation error.", err);
+    } finally {
+        db.close();
+    }
+}
+
+
+await createTables();
+*/
+// ======================> TABLES CREATED <======================

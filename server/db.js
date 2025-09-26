@@ -1,8 +1,48 @@
 import sqlite3 from "sqlite3";
+import fs from 'fs';
 
-export const db = new sqlite3.Database("./db/forum.db", sqlite3.OPEN_READWRITE);
+// ======================> DB creation <======================
+const db = new sqlite3.Database("./db/forum.db", sqlite3.OPEN_READWRITE, (err) => {
+    if (err) return console.error(err);
+    console.log("Connected to db.")
+});
 
-export const memoryDB = new sqlite3.Database(':memory:', sqlite3.OPEN_READWRITE);
+/*
+export const memoryDB = new sqlite3.Database(':memory:', sqlite3.OPEN_READWRITE, (err) => {
+    if (err) return reject(err);
+    console.log("Connected to memoryDB.")
+});
+*/
+
+// ======================> DB creation <======================
+
+
+// ======================> ENABLING FOREIGN KEYS & exporting DB <======================
+
+db.serialize(() => {
+    db.run("PRAGMA foreign_keys = ON;", (err) => {
+        if (err) console.error(err);
+        console.log("Foreign keys enabled.")
+    })
+})
+
+
+export default db;
+
+// ======================> ENABLING FOREIGN KEYS & exporting DB <======================
+
+
+// ======================> HELPER FUNCTIONS <======================
+
+export const readFilePro = file => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, 'utf8', (err, data) => {
+            if (err) return reject(`could not read file. Error message: ${err.message}`);
+
+            resolve(data);
+        })
+    })
+}
 
 export const execute = (db, sql) => {
     return new Promise((resolve, reject) => {
@@ -32,3 +72,5 @@ export const fetchAll = (db, sql, params) => {
         })
     })
 }
+
+// ======================> HELPER FUNCTIONS <======================

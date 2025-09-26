@@ -6,7 +6,7 @@ The aim of this website is to provide a discussion board for new fathers. Throug
 
 # Purpose
 This project is an all-encompassing fullstack web project that will allow me to learn 
-how to build a website without relying on a framework. Users will be able to:
+how to build a website. Users will be able to:
 - Register and log in
 - Create and view discussion threads
 - Post comments on threads
