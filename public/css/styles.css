@@ -83,6 +83,18 @@ main {
     box-shadow: 2px 2px 5px #32021F
 }
 
+.flex-form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    width: 150px;
+    margin-left: 20px;
+}
+
+.flex-submit {
+    margin-top: 5px;
+}
+
 /*Forum Dad*/
 #banner {
     color: #F7F0F0;
