@@ -4,6 +4,7 @@ import express from 'express';
 import sqlite3 from "sqlite3";
 import fs from 'fs';
 import db from './db.js'
+import memoryDB from './db.js'
 import { execute, inserting, fetchAll, readFilePro } from './db.js';
 import path from 'path';
 import url from 'url';
@@ -17,6 +18,7 @@ import session from 'express-session';
 // to hash and compare passwords for storage
 import bcrypt from 'bcrypt'
 import { error } from 'console';
+import { exec } from 'child_process';
 
 
 
@@ -115,26 +117,54 @@ app.get('/sign_up', (req, res) => {
     res.send(signOutput);
 });
 
+const createTableInsertUser = async (username, email, pass_hash) => {
+    let sql = "INSERT INTO users(username, email, password_hash) VALUES(?, ?, ?)";
+    let sql2 = "SELECT * FROM users";
+    try {
+        // reading from sql table and creating tables
+        const fileIn = await readFilePro("/Users/kal/forum-dad/db/schema.sql");
+        await execute (
+            memoryDB,
+            fileIn
+        );
+        console.log("Tables created...");
+        // inserting data into a table for a user
+        await inserting(
+            memoryDB,
+            sql,
+            [username, email, pass_hash]
+        );
+        console.log("Entering user into memory DB...");
+
+    }catch(error) {
+        console.error(error);
+    } finally {
+        // logging the table that the user was created in
+        let rows = await fetchAll(
+            memoryDB,
+            sql2,
+            []
+        );
+        console.log(rows);
+    }
+}
+
+
 // POST request for sign_up form data
-app.post('/api/sign_up', (req,res) => {
+app.post('/api/sign_up', async (req,res) => {
     const formData = req.body;
 
     // retrieving strings from the object
-    const userEmail = formData.email;
     const userName = formData.username;
+    const userEmail = formData.email;
     const userPass = formData.password;
 
-    // storing strings into an array
-    let userArray = [userEmail, userName, userPass];
+    const hash = await bcrypt.hash(userPass, 13);
 
-    console.log("User information:");
+    // storing into memory DB
+    createTableInsertUser(userName, userEmail, hash);
 
-    userArray.forEach(element => {
-        console.log(element);
-    });
-
-    res.status(201).json({message: 'Data received and stored.', formData});
-
+    res.status(201).json({message: 'Data received, hashed, and stored into memoryDB.', formData});
 
 })
 

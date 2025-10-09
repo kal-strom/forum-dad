@@ -2,32 +2,32 @@ import sqlite3 from "sqlite3";
 import fs from 'fs';
 
 // ======================> DB creation <======================
-const db = new sqlite3.Database("./db/forum.db", sqlite3.OPEN_READWRITE, (err) => {
+/*const db = new sqlite3.Database("./db/forum.db", sqlite3.OPEN_READWRITE, (err) => {
     if (err) return console.error(err);
     console.log("Connected to db.")
-});
+});*/
 
-/*
-export const memoryDB = new sqlite3.Database(':memory:', sqlite3.OPEN_READWRITE, (err) => {
+
+const memoryDB = new sqlite3.Database(':memory:', sqlite3.OPEN_READWRITE, (err) => {
     if (err) return reject(err);
     console.log("Connected to memoryDB.")
 });
-*/
+
 
 // ======================> DB creation <======================
 
 
 // ======================> ENABLING FOREIGN KEYS & exporting DB <======================
 
-db.serialize(() => {
-    db.run("PRAGMA foreign_keys = ON;", (err) => {
+memoryDB.serialize(() => {
+    memoryDB.run("PRAGMA foreign_keys = ON;", (err) => {
         if (err) console.error(err);
         console.log("Foreign keys enabled.")
     })
 })
 
 
-export default db;
+export default memoryDB;
 
 // ======================> ENABLING FOREIGN KEYS & exporting DB <======================
 
