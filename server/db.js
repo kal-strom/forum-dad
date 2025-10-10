@@ -53,6 +53,19 @@ export const execute = (db, sql) => {
     })
 };
 
+// retrieve user information
+
+export const retrieve = (db, sql, params =[]) => {
+    if (params && params.length > 0) {
+        return new Promise((resolve, reject) => {
+            db.get(sql, params, (err, rows) => {
+                if (err) return reject(err);
+                resolve(rows);
+            })
+        })
+    }
+}
+
 export const inserting = (db, sql, params = []) => {
     if (params && params.length > 0) {
         return new Promise((resolve, reject) => {

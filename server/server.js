@@ -5,7 +5,7 @@ import sqlite3 from "sqlite3";
 import fs from 'fs';
 import db from './db.js'
 import memoryDB from './db.js'
-import { execute, inserting, fetchAll, readFilePro } from './db.js';
+import { execute, inserting, fetchAll, retrieve, readFilePro } from './db.js';
 import path from 'path';
 import url from 'url';
 
@@ -106,6 +106,7 @@ app.listen(PORT, () =>
 app.use(express.static('public'));
 
 const signOutput = await readFilePro('/Users/kal/forum-dad/views/sign_up.html');
+const loginOutput = await readFilePro('/Users/kal/forum-dad/views/log_in.html')
 
 // GET request for index.html for the website root.
 app.get('/', (req,res) => {
@@ -149,6 +150,18 @@ const createTableInsertUser = async (username, email, pass_hash) => {
     }
 }
 
+/*const findUser = async (username, pass) => {
+    sqlUser = `SELECT FROM users WHERE username = ? AND password_hash = ?`;
+    try {
+        const sqlResult = await retrieve(memoryDB,
+            sqlUser,
+            [username]
+        )
+        const userHash = sqlResult.password_hash;
+        const isValid = bcrypt.compare(pass, userHash);
+    }
+}*/
+
 
 // POST request for sign_up form data
 app.post('/api/sign_up', async (req,res) => {
@@ -166,6 +179,35 @@ app.post('/api/sign_up', async (req,res) => {
 
     res.status(201).json({message: 'Data received, hashed, and stored into memoryDB.', formData});
 
+})
+
+// GET request for log_in.html
+app.get('/login', (req,res) => {
+    res.send(loginOutput);
+})
+
+app.post('/api/login', async (req,res) => {
+    //object destructuring allows you to extract
+    //values from an object and assign them to values
+    const {username, password} = req.body;
+
+    try {
+        let sql = `SELECT * FROM users WHERE username = ?`;
+        const sqlResult = await retrieve(memoryDB,
+            sql,
+            [username]
+        )
+        const storedHash = sqlResult.password_hash;
+        const isValid = await bcrypt.compare(password, storedHash);
+        if (!isValid){
+            res.status(401).json({message: 'invalid password'})
+            throw new Error("Password does not match.")
+        }else {
+            res.status(200).json({message: 'password match:', item: isValid, message: 'you are logged in' });
+        }
+    } catch(error) {
+        console.error(error);
+    }
 })
 
 /*
