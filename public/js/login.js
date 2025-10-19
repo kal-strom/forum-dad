@@ -27,3 +27,6 @@ loginForm.addEventListener('submit', event => {
     .catch(error => console.error(error));
 })
 
+
+//NOTE: AFTER A SUCCESSFUL LOGIN, WE WANT TO REDIRECT THE USER BACK TO THE 
+// HOME-PAGE OR ROOT.

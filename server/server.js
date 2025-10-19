@@ -181,6 +181,19 @@ app.post('/api/sign_up', async (req,res) => {
 
 })
 
+app.use(session({
+    secret: 'secret',
+    // when you dont want to save unmodified session stores
+    // i.e we have a bunch of people coming to our site and not doing anything,
+    // it will save a session object
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // equals 24 hours 
+    }
+}))
+
+
 // GET request for log_in.html
 app.get('/login', (req,res) => {
     res.send(loginOutput);
@@ -193,17 +206,24 @@ app.post('/api/login', async (req,res) => {
 
     try {
         let sql = `SELECT * FROM users WHERE username = ?`;
+        // creating variable to hold resolved promise from retrieve (row).
+        // we use the username from the req.body to find the user in the DB
         const sqlResult = await retrieve(memoryDB,
             sql,
             [username]
         )
+        // since row is returned as an object, we can access the value we want by using the
+        // corresponding dot operator
         const storedHash = sqlResult.password_hash;
+
+        // comparing the password from req.body against the stored hash
+        // if its incorrect, send message and throw an error 
         const isValid = await bcrypt.compare(password, storedHash);
         if (!isValid){
-            res.status(401).json({message: 'invalid password'})
+            res.status(401).json({ message: 'invalid password' })
             throw new Error("Password does not match.")
         }else {
-            res.status(200).json({message: 'password match:', item: isValid, message: 'you are logged in' });
+            res.status(200).json({ message: 'password match:', item: isValid });
         }
     } catch(error) {
         console.error(error);
