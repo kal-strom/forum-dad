@@ -5,8 +5,7 @@ A discussion based online forum for first-time, inexperienced fathers to share i
 The aim of this website is to provide a discussion board for new fathers. Through discourse and engagement, we hope to give young or inexperienced dads a place to share their excitement and their struggles as they grow alongside their children. 
 
 # Purpose
-This project is an all-encompassing fullstack web project that will allow me to learn 
-how to build a website. Users will be able to:
+This project is an all-encompassing fullstack web project. Users will be able to:
 - Register and log in
 - Create and view discussion threads
 - Post comments on threads
@@ -75,30 +74,6 @@ how to build a website. Users will be able to:
 - GET /messages/inbox - Get received messages
 - POST /messages - Send a message
 
-## Folder Structure
-
-/forumboard
-│
-├── /client         # HTML, CSS, JS
-│   ├── index.html
-│   ├── thread.html
-│   ├── login.html
-│   └── style.css
-│
-├── /server         # Express backend code
-│   ├── routes/
-│   ├── controllers/
-│   ├── db.js
-│   └── server.js
-│
-├── /db             # SQL schema and seed scripts
-│   └── schema.sql
-│
-├── /docs           # ERD and planning diagrams
-│   └── erd.png
-│
-└── README.md       # This document
-
 ## MVP Goals
 
 - [ ] Users can sign up and log in
@@ -115,15 +90,4 @@ how to build a website. Users will be able to:
 - Upvotes/downvotes on threads or comments
 - Search or filter functionality
 
-
-## Weekly Milestones
-
-- Week 1: Project planning, database schema, API design ✅
-- Week 2: Auth system (signup/login/logout)
-- Week 3: Threads + comment APIs
-- Week 4: Messaging system
-- Week 5: Frontend static layout (HTML/CSS Primer)
-- Week 6: JS + Backend integration (fetch, AJAX)
-- Week 7: Session-based auth in frontend
-- Week 8: Testing + MVP polish
 
