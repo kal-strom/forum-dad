@@ -41,7 +41,7 @@ const __dirname = dirname(__filename);
         await inserting(
             memoryDB,
             sql,
-            ["Kal", "Strom", 31, "kal@gmail.com" ]
+            ["Kal", "Strom", 67, "sutf@gmail.com" ]
         );
     } catch (error) {
         console.error(error);
@@ -181,17 +181,7 @@ app.post('/api/sign_up', async (req,res) => {
 
 })
 
-app.use(session({
-    secret: 'secret',
-    // when you dont want to save unmodified session stores
-    // i.e we have a bunch of people coming to our site and not doing anything,
-    // it will save a session object
-    saveUninitialized: false,
-    resave: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // equals 24 hours 
-    }
-}))
+// Need to implement app.use session for login/api/login.
 
 
 // GET request for log_in.html
