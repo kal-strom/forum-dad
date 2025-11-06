@@ -95,16 +95,23 @@ app.use(express.urlencoded({ extended: true }));
 
 // initializing req.session at the top for global access
 // will eventually store secret: 'key' into env variable
-app.use(express.session({
+const store = new session.MemoryStore();
+
+app.use(session({
     secret: 'key',
     resave: false,
-    saveUnitialized: false,
-    store: new session.MemoryStore(),
+    saveUninitialized: true,
+    store: store,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 // Equates to 1 day
     }
-
 }))
+
+// creating temporary debug route to peek at MemoryStore sessions
+app.get('/session-log', (req, res) => {
+    res.send('Displaying store.sessions to terminal.')
+    console.log(store.sessions);
+})
 
 // setting the port number the server "listens on"
 // visiting http://localhost:3000 will connect to it 
@@ -232,6 +239,7 @@ app.post('/api/login', async (req,res) => {
         console.error(error);
     }
 })
+
 
 /*
 app.post('/sign_up', (req, res) => {
