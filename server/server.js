@@ -93,6 +93,19 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+// initializing req.session at the top for global access
+// will eventually store secret: 'key' into env variable
+app.use(express.session({
+    secret: 'key',
+    resave: false,
+    saveUnitialized: false,
+    store: new session.MemoryStore(),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // Equates to 1 day
+    }
+
+}))
+
 // setting the port number the server "listens on"
 // visiting http://localhost:3000 will connect to it 
 const PORT = 3000;
