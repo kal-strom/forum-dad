@@ -233,9 +233,9 @@ app.post('/api/login', async (req,res) => {
             res.status(401).json({ message: 'invalid password' })
             throw new Error("Password does not match.")
         }else {
+            // attaching username to session object that is assigned to req
             req.session.user = username;
-            res.status(200).json({ message: 'password match:', item: isValid });
-            // storing username to test session 
+            res.status(200).json({ message: 'password match:', item: isValid }); 
         }
     } catch(error) {
         console.error(error);
