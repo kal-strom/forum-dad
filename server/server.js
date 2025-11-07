@@ -100,7 +100,7 @@ const store = new session.MemoryStore();
 app.use(session({
     secret: 'key',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: store,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 // Equates to 1 day
@@ -233,7 +233,9 @@ app.post('/api/login', async (req,res) => {
             res.status(401).json({ message: 'invalid password' })
             throw new Error("Password does not match.")
         }else {
+            req.session.user = username;
             res.status(200).json({ message: 'password match:', item: isValid });
+            // storing username to test session 
         }
     } catch(error) {
         console.error(error);
