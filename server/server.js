@@ -113,6 +113,15 @@ app.get('/session-log', (req, res) => {
     console.log(store.sessions);
 })
 
+// checking to see if sessions exists, sending res to home.js 
+app.get('/api/session', (req, res) => {
+    if(req.session && req.session.user_id) {
+        res.status(200).json({authenticated: true, userID: req.session.user_id});
+    } else {
+        res.status(401).json({authenticated: false, message: 'no active session'});
+    }
+})
+
 // setting the port number the server "listens on"
 // visiting http://localhost:3000 will connect to it 
 const PORT = 3000;
