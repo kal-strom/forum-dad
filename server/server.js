@@ -230,6 +230,9 @@ app.post('/api/login', async (req,res) => {
         // corresponding dot operator
         const storedHash = sqlResult.password_hash;
 
+        // retrieving the user_id for more specification
+        const userID = sqlResult.user_id;
+
         // comparing the password from req.body against the stored hash
         // if its incorrect, send message and throw an error 
         const isValid = await bcrypt.compare(password, storedHash);
@@ -237,7 +240,9 @@ app.post('/api/login', async (req,res) => {
             res.status(401).json({ message: 'invalid password' })
             throw new Error("Password does not match.")
         }else {
-            // attaching username to session object that is assigned to req
+            // creating user_id property for the session object
+            req.session.user_id = userID;
+            // creating username property for the session object
             req.session.user = username;
             res.status(200).json({ message: 'password match:', item: isValid }); 
         }
