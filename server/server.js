@@ -209,6 +209,10 @@ app.get('/login', (req,res) => {
     res.send(loginOutput);
 })
 
+
+// need to implement a check to see if the username actually exists, 
+// if it doesnt send a message that says "username OR password is incorrect" to avoid giving critical 'tells' 
+
 app.post('/api/login', async (req,res) => {
     //object destructuring allows you to extract
     //values from an object and assign them to values
