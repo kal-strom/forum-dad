@@ -39,8 +39,8 @@ async function sessionCheckAndLogout() {
             console.log(resLogout);
         })
 
-    } catch(err) {
-        console.err(err);
+    } catch(error) {
+        console.error(error);
     }
 }
 

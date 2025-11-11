@@ -60,7 +60,7 @@ await createTables();
 */
 
  
-// ======================> TABLES CREATED <======================
+// <======================> TABLES CREATED <======================>
 
 /*const createTables = async() => {
     try {
@@ -80,7 +80,7 @@ await createTables();
 
 await createTables();
 */
-// ======================> TABLES CREATED <======================
+// <======================> TABLES CREATED <======================>
 
 // creating an instance of express named app that represents our server
 const app = express();
@@ -190,18 +190,6 @@ const createTableInsertUser = async (username, email, pass_hash) => {
     }
 }
 
-/*const findUser = async (username, pass) => {
-    sqlUser = `SELECT FROM users WHERE username = ? AND password_hash = ?`;
-    try {
-        const sqlResult = await retrieve(memoryDB,
-            sqlUser,
-            [username]
-        )
-        const userHash = sqlResult.password_hash;
-        const isValid = bcrypt.compare(pass, userHash);
-    }
-}*/
-
 
 // POST request for sign_up form data
 app.post('/api/sign_up', async (req,res) => {
@@ -271,25 +259,4 @@ app.post('/api/login', async (req,res) => {
     }
 })
 
-
-/*
-app.post('/sign_up', (req, res) => {
-    const incomingData = req.body;
-
-    console.log('Data received:', incomingData);
-
-    res.status(201).json( {message: 'Data receieved successfully', data: incomingData });
-});
-
-app.get('/login', (req, res) => {
-    res.send("This is the login");
-});*/
-
-//const index_output = await readFilePro('/Users/kal/forum-dad/public/index.html');
-
-/*app.get('/forum-dad', (req, res) => {
-    const pathName =  req.ori
-
-    res.send(index_output);
-})*/
 
