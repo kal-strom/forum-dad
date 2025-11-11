@@ -122,6 +122,17 @@ app.get('/api/session', (req, res) => {
     }
 })
 
+// destroying user session
+app.get('/api/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return next (err);
+        }
+        res.clearCookie('connect.sid');
+        res.status(200).json({logged_out: true, message: 'You have been logged out.'})
+    })
+})
+
 // setting the port number the server "listens on"
 // visiting http://localhost:3000 will connect to it 
 const PORT = 3000;
