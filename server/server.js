@@ -3,9 +3,9 @@ import { dirname } from 'path';
 import express from 'express';
 import sqlite3 from "sqlite3";
 import fs from 'fs';
-import db from './db.js'
-import memoryDB from './db.js'
-import { execute, inserting, fetchAll, retrieve, readFilePro } from './db.js';
+import db from '../db/db.js'
+import memoryDB from '../db/db.js'
+import { execute, inserting, fetchAll, retrieve, readFilePro } from '../db/db.js';
 import path from 'path';
 import url from 'url';
 
