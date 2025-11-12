@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS posts (
     user_id INT NOT NULL,
     thread_id INT NOT NULL,
     title TEXT NOT NULL,
-    content TEXT NOT NULL,
     date_created DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (thread_id) REFERENCES thread (thread_id) ON DELETE CASCADE
