@@ -13,11 +13,13 @@ const router = express.Router();
 // inserts a new user into the DB using the predfined table from schema.sql
 // logs the result into the terminal
 
+// this works currently for in-memory, but we can't continue creating the 
+// tables each time a user is inserted. will need to change for prod.
 const createTableInsertUser = async (username, email, pass_hash) => {
     let sql = "INSERT INTO users(username, email, password_hash) VALUES(?, ?, ?)";
     let sql2 = "SELECT * FROM users";
     try {
-        // reading from sql table and creating tables
+        // reading from schema and creating tables
         const fileIn = await readFilePro("/Users/kal/forum-dad/db/schema.sql");
         await execute (
             memoryDB,
