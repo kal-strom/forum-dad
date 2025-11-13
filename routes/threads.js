@@ -1,5 +1,8 @@
 import memoryDB from '../db/db.js'
 import { execute, inserting, fetchAll, retrieve, readFilePro } from '../db/db.js';
+import express from 'express';
+
+const router = express.Router();
 
 // helper function for db insertion
 const createThread = async (user_id, title, content) => {
@@ -17,7 +20,7 @@ const createThread = async (user_id, title, content) => {
 
 
 // POST route for creating a thread
-app.post('/api/new-thread', (req, res) => {
+router.post('/api/new-thread', (req, res) => {
     if(!req.session && req.user_id) {
         res.status(401).json({authenticated: false, message: 'You must be logged in to do that!'})
     }
@@ -44,10 +47,12 @@ const getAllThreads = async () => {
 }
 
 // GET route for retrieving all threads
-app.get('/api/threads', async (req, res) => {
+router.get('/api/threads', async (req, res) => {
     const threadRetrieval = getAllThreads();
     res.json(threadRetrieval);
 })
+
+export default router;
 
 /*
         const rowThread_id = rows.thread_id;

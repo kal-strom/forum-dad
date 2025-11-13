@@ -6,6 +6,7 @@ import sqlite3 from "sqlite3";
 import path from 'path';
 import session from 'express-session';
 import authRoutes from '../routes/auth.js';
+import threadRoutes from '../routes/threads.js';
 
 
 
@@ -36,6 +37,7 @@ app.use(session({
 }))
 
 app.use(authRoutes);
+app.use(threadRoutes);
 
 // setting the port number the server "listens on"
 // visiting http://localhost:3000 will connect to it 
