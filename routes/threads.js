@@ -28,6 +28,7 @@ router.post('/api/new-thread', (req, res) => {
         const userID = req.session.user_id;
         const {title, content} = req.body;
         createThread(userID, title, content);
+        res.status(201).json({message: 'Thread created!'});
     }
 })
 
@@ -48,7 +49,7 @@ const getAllThreads = async () => {
 
 // GET route for retrieving all threads
 router.get('/api/threads', async (req, res) => {
-    const threadRetrieval = getAllThreads();
+    const threadRetrieval =  await getAllThreads();
     res.json(threadRetrieval);
 })
 
