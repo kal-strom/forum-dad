@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', async event => {
             console.log(`Status: ${threadsResponse.status}`)
         }
         else {
-            console.log(threadsResponse);
+            const data = await threadsResponse.json();
+            console.log(data);
         }
     }catch(error){
         console.log(error);
