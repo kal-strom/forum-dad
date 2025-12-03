@@ -5,6 +5,9 @@ import express from 'express';
 
 const router = express.Router();
 
+// function that will help grab the posts 
+
+
 
 
 // function that will create a post in a thread

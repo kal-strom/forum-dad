@@ -32,5 +32,5 @@ CREATE TABLE IF NOT EXISTS posts (
     content TEXT NOT NULL,
     date_created DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
-    FOREIGN KEY (thread_id) REFERENCES thread (thread_id) ON DELETE CASCADE
+    FOREIGN KEY (thread_id) REFERENCES threads (thread_id) ON DELETE CASCADE
 );
