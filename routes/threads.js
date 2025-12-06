@@ -32,10 +32,17 @@ router.post('/api/new-thread', (req, res) => {
     }
 })
 
-// helper function for thread retrieval
+// helper function for /api/threads
 const getAllThreads = async () => {
     try {
-        let sql = "SELECT * FROM threads";
+        let sql = `SELECT
+                     threads.title AS Title,
+                     threads.content AS Content,
+                     user.username AS Author
+                   FROM threads
+                   INNER JOIN users
+                     ON threads.user_id = users.user_id;`
+
         let rows = await fetchAll (
             memoryDB,
             sql,
@@ -47,26 +54,43 @@ const getAllThreads = async () => {
     }
 }
 
-// GET route for retrieving all threads
+// GET route for retrieving all threads (not including posts)
 router.get('/api/threads', async (req, res) => {
     const threadRetrieval =  await getAllThreads();
     res.json(threadRetrieval);
 })
 
+// helper function that gets All threads and any posts that are associated by thread_id.
+const getThreadsAndPosts = async () => {
+    try {
+        let sql = `SELECT
+                     threads.title AS Title,
+                     threads.content AS thread_content,
+                     thread_author.username AS thread_author,
+                     posts.content AS post_content,
+                     post_author.username AS post_author
+                   FROM threads
+                   INNER JOIN posts
+                     ON threads.thread_id = posts.thread_id
+                   INNER JOIN users AS thread_author
+                     ON threads.user_id = thread_author.user_id
+                   INNER JOIN users AS post_author
+                     ON posts.user_id = post_author.user_id;`
+                   
+        let rows = await fetchAll(
+            memoryDB,
+            sql,
+            []
+        );
+        return rows;
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+router.get('/api/threads-and-posts', async (req, res) => {
+    const threadAndPostContainer = await getThreadsAndPosts();
+    res.json(threadAndPostContainer);
+})
+
 export default router;
-
-/*
-        const rowThread_id = rows.thread_id;
-        const rowUser_id = rows.user_id;
-        const rowTitle = rows.title;
-        const rowContent = rows.content;
-        const rowDate_created = rows.date_created;
-
-        const thread_object = {
-            thread_id: rowThread_id,
-            user_id: rowUser_id,
-            title: rowTitle,
-            content: rowContent,
-            date_created: rowDate_created
-        };
-*/
