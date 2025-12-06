@@ -38,7 +38,7 @@ const getAllThreads = async () => {
         let sql = `SELECT
                      threads.title AS Title,
                      threads.content AS Content,
-                     user.username AS Author
+                     users.username AS Author
                    FROM threads
                    INNER JOIN users
                      ON threads.user_id = users.user_id;`

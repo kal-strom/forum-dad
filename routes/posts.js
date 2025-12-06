@@ -36,7 +36,7 @@ router.post('/api/new-post', (req, res) => {
         const {thread_id, content} = req.body;
         createPost(user_id, thread_id, content);
 
-        res.status(401).json({message: 'Your post has been successfully created:', content});
+        res.status(201).json({message: 'Your post has been successfully created:', content});
     }
 })
 
