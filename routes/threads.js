@@ -61,7 +61,7 @@ router.get('/api/threads', async (req, res) => {
 })
 
 
-// helper function to retrieve a single thread
+// helper function for '/threads/:id'
 const getThread = async (thread_id) => {
     let sql = `SELECT 
                  threads.title AS Title,
