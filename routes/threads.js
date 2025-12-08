@@ -60,6 +60,36 @@ router.get('/api/threads', async (req, res) => {
     res.json(threadRetrieval);
 })
 
+
+// helper function to retrieve a single thread
+const getThread = async (thread_id) => {
+    let sql = `SELECT 
+                 threads.title AS Title,
+                 threads.content AS Content,
+                 users.username AS Author
+               FROM threads
+               INNER JOIN users
+                 ON threads.user_id = users.user_id
+               WHERE threads.thread_id = ?;`
+    try {
+        let row = await retrieve(memoryDB,
+            sql,
+            [thread_id]
+        );
+        return row;
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+// GET route for retrieving ONE thread.
+router.get('/threads/:id', async (req, res) => {
+    const threadID = req.params.id;
+    const thread = await getThread(threadID);
+
+    res.json(thread);
+})
+
 // helper function that gets All threads and any posts that are associated by thread_id.
 const getThreadsAndPosts = async () => {
     try {
